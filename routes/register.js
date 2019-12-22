@@ -1,0 +1,41 @@
+//import { User } from '../../../model'
+const User = require('../model').User
+registerHandler = async (req, res) => {
+
+    try{
+        if (req.method !== 'POST') {
+            res.status(405).end()
+            return
+        }
+        console.log(req.body)
+        const {email, password, passwordconfirmation} = req.body
+        if (password !== passwordconfirmation) {
+            res.statusCode=403
+            res.end(
+              JSON.stringify({ status: 'error', message: 'Passwords do not match' })
+            )
+            return
+        }
+        const user = await User.create({ email, password})
+        //using passport log straight in if user created
+        req.login(user, err => {
+			if (err) {
+				res.statusCode = 500
+				res.end(JSON.stringify({ status: 'error', message: err }))
+				return
+            }
+        return res.end(JSON.stringify({status:'success', messages: 'User added'}))
+        })
+
+    } catch (error) {
+        //console.log(error)
+        res.statusCode= 500
+        let message = 'An error occurred'
+        if (error.name === 'SequelizeUniqueConstraintError') {
+        message = 'User already exists'
+        }
+        res.end(JSON.stringify({ status: 'error', error }))
+    }
+}
+
+module.exports = registerHandler

@@ -18,6 +18,8 @@ const sessionStore = new SequelizeStore({
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
+const registerHandler = require('./routes/register')
+
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
@@ -67,9 +69,11 @@ nextApp.prepare().then(() => {
             },
             store: sessionStore
         }),
+        express.json(),
         passport.initialize(),
         passport.session()
     )
+    server.post('/auth/register', (req,res) => registerHandler(req,res))
     server.all('*', (req,res) => {
         return handle(req,res)
     })

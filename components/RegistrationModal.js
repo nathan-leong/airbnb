@@ -8,9 +8,19 @@ export default props => {
         <div>
             <h2>Sign up</h2>
             <div>
-            <form onSubmit={event => {
+            <form onSubmit={async event => {
                 event.preventDefault()
-                axios.post('/api/auth/register', {email, password, passwordconfirmation})
+                try {
+                    const response = await axios.post('/auth/register', { email, password, passwordconfirmation })
+                    if (response.data.status === 'error') {
+                      alert(response.data.message)
+                      return
+                    }
+                } catch (error) {
+                    console.log('error ',error)
+                    alert(error)
+                    return
+                }
             }}>
                 <input id='email' type='email' placeholder='Email address' onChange={ e => {
                     setEmail(e.target.value)
