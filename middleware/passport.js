@@ -17,7 +17,7 @@ passport.use(new LocalStrategy({
         return
     }
 
-    const valid = await User.isPasswordValid(password)
+    const valid = await user.isPasswordValid(password)
 
     if(!valid) {
         done('Email and password do not match', null)

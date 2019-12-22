@@ -1,27 +1,46 @@
 import Link from 'next/link'
-import {useStoreActions} from 'easy-peasy'
+import {useStoreActions, useStoreState} from 'easy-peasy'
 import store from '../store'
+import axios from 'axios'
 
 const Header = () => {
     //Two ways of using actions show below
+    //useStoreActions & useStoreState will ensure when store update react view also updates
     const setShowLoginModal = () => store.getActions().modals.setShowLoginModal()
     const setShowRegistrationModal = useStoreActions(
         actions => actions.modals.setShowRegistrationModal
     )
+    const user = useStoreState(state => state.user.user)
+    const setUser = useStoreActions(actions => actions.user.setUser)
     const content = (
     <div className='nav-container'>
         <Link href='/'>
             <a><img src='/img/logo.png' alt=''/></a>
         </Link>
         <nav>
-            <ul>
-                <li>
-                    <a href='#' onClick={()=> setShowRegistrationModal()}>Sign up</a>
-                </li>
-                <li>
-                    <a href='#' onClick={() => setShowLoginModal()}>Login</a>
-                </li>        
-            </ul>
+            {user ? (
+                <ul>
+                    <li className='username'>{user}</li>
+                    <li>
+                    <a href='#'
+                    onClick={async () => {
+                        await axios.post('/api/auth/logout')
+                        setUser(null)
+                    }}>
+                        Log Out
+                    </a>
+                    </li>    
+                </ul>
+                ) : (
+                <ul>
+                    <li>
+                        <a href='#' onClick={()=> setShowRegistrationModal()}>Sign up</a>
+                    </li>
+                    <li>
+                        <a href='#' onClick={() => setShowLoginModal()}>Login</a>
+                    </li> 
+                </ul>
+            )}                     
         </nav>
 
         <style jsx>{`
@@ -54,6 +73,9 @@ const Header = () => {
             img {
                 float: left;
                 width: 50px;
+            }
+            .username {
+                padding: 1em 0.5em;
             }
         `}</style>
     </div>

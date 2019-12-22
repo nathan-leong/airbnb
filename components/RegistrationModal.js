@@ -1,9 +1,14 @@
 import { useState } from 'react'
 import axios from 'axios'
+import store from '../store'
+import { useStoreActions } from 'easy-peasy'
 export default props => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordconfirmation, setPasswordconfirmation] = useState('')
+    
+    const setHideModal = useStoreActions(actions => actions.modals.setHideModal)
+    const setUser = useStoreActions(actions => actions.user.setUser)
     return (
         <div>
             <h2>Sign up</h2>
@@ -16,6 +21,11 @@ export default props => {
                       alert(response.data.message)
                       return
                     }
+                    setHideModal()
+                    setUser(email)
+                    setEmail('')
+                    setPassword('')
+                    setPasswordconfirmation('')
                 } catch (error) {
                     console.log('error ',error)
                     alert(error)

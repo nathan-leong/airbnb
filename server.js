@@ -16,9 +16,9 @@ nextApp.prepare().then(() => {
     server.use(
         express.json()
     )
-    server.use('/api', routes)
     initSession(server)
     initPassport(server)
+    server.use('/api', routes)
     server.all('*', (req,res) => {
         return handle(req,res)
     })
