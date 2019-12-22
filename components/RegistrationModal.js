@@ -11,7 +11,7 @@ export default props => {
             <form onSubmit={async event => {
                 event.preventDefault()
                 try {
-                    const response = await axios.post('/auth/register', { email, password, passwordconfirmation })
+                    const response = await axios.post('api/auth/register', { email, password, passwordconfirmation })
                     if (response.data.status === 'error') {
                       alert(response.data.message)
                       return
