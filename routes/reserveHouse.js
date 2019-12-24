@@ -3,12 +3,13 @@ const Booking = require('../models/booking')
 const reserveHouseHandler = async (req,res) => {
     const userEmail = req.session.passport.user
     try {
-        const {houseId, startDate,endDate} = req.body
+        const {houseId, startDate,endDate,sessionId} = req.body
         const user = await User.findOne({ where: {email: userEmail }})
         await Booking.create({
             houseId,
             startDate,
             endDate,
+            sessionId,
             userId: user.id
         })
         res.writeHead(200, {

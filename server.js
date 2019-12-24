@@ -14,7 +14,11 @@ const handle = nextApp.getRequestHandler()
 nextApp.prepare().then(() => {
     const server = express()
     server.use(
-        express.json()
+        express.json({
+            verify: (req, res, buf) => { //make rawBody available
+                req.rawBody = buf
+            }
+        })
     )
     initSession(server)
     initPassport(server)

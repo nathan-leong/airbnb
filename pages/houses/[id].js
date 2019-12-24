@@ -3,7 +3,6 @@ import Layout from '../../components/Layout'
 import DateRangePicker from '../../components/DateRangePicker'
 import {useStoreActions, useStoreState} from 'easy-peasy'
 import axios from 'axios'
-
 const House = props => {
 
     const setShowLoginModal = useStoreActions(actions => actions.modals.setShowLoginModal)
@@ -15,13 +14,21 @@ const House = props => {
 
     const reserve = async () => {
         try{
+            const sessionResponse = await axios.post('/api/stripe/session',
+            {amount: totalCost})
+            console.log(sessionResponse.data)
+            const {sessionId, stripePublicKey} = sessionResponse.data
             const response = await axios.post('/api/houses/reserve', 
             {
                 houseId: props.house.id,
                 startDate,
                 endDate,
+                sessionId
             })
             console.log(response.data)
+
+            const stripe = Stripe(stripePublicKey)
+            await stripe.redirectToCheckout({sessionId})
         } catch (error) {
             console.log(error)
         }
