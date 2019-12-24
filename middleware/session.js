@@ -2,7 +2,7 @@
 const session = require('express-session')
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
-const sequelize = require('../model.js').sequelize
+const sequelize = require('../database.js')
 const sessionStore = new SequelizeStore({
     db: sequelize
 })

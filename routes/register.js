@@ -1,5 +1,5 @@
 //import { User } from '../../../model'
-const User = require('../model').User
+const User = require('../models/user')
 
 registerHandler = async (req, res) => {
     try{

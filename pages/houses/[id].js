@@ -1,18 +1,20 @@
-import houses from '../houses.json'
 import Head from 'next/head'
-import Modal from '../../components/Modal'
-import {useState, useEffect} from 'react'
 import Layout from '../../components/Layout'
 import DateRangePicker from '../../components/DateRangePicker'
-import {useStoreActions} from 'easy-peasy'
+import {useStoreActions, useStoreState} from 'easy-peasy'
+import axios from 'axios'
+
 const House = props => {
 
-    const [totalCost, setTotalCost] = useState(props.house.price)
-    const [stayDuration, setStayDuration] = useState(1)
     const setShowLoginModal = useStoreActions(actions => actions.modals.setShowLoginModal)
-    useEffect(() => {
-        setTotalCost(stayDuration*props.house.price)
-    })
+    const user = useStoreState(state => state.user.user)
+    const totalNights = useStoreState(state => state.bookingDates.totalNights)
+    const totalCost = totalNights*props.house.price
+
+    const bookHouse = () => {
+
+    }
+
     const content = (
         <div className="container">
             <Head>
@@ -24,19 +26,33 @@ const House = props => {
                     {props.house.type} - {props.house.town}
                 </p>
                 <p>{props.house.title}</p>
-                <p>
-                    {props.house.rating} ({props.house.reviewsCount})
-                </p>
+                {props.house.reviewsCount > 0 && (
+                    <div className='reviews'>
+                    <h3>{props.house.reviewsCount} Reviews</h3>
+
+                    {props.house.reviews.map((review, index) => {
+                        return (
+                            <div key={index}>
+                                <p>{new Date(review.createdAt).toDateString()}</p>
+                                <p>{review.comment}</p>
+                            </div>
+                        )
+                    })}
+                    </div>
+                )}
             </article>
             <aside>
                 <h2>Add dates for prices</h2>
-                <DateRangePicker setStayDuration={setStayDuration}/>
+                <DateRangePicker/>
                 <div>
                     <h2>Price per night</h2>
                     <p>${props.house.price}</p>
                     <h2>Total Price</h2>
                     <p>${totalCost}</p>
-                    <button className="reserve" onClick={() => setShowLoginModal()}>Reserve</button>
+                    <button className="reserve" onClick={
+                        user ? () => bookHouse() : () => setShowLoginModal()}>
+                        {user ? 'Reserve' : 'Login to Reserve' }
+                    </button>
                 </div>
             </aside>
 
@@ -57,12 +73,12 @@ const House = props => {
     return (<Layout content={content}/>)
 }
 
-House.getInitialProps = ({ query }) => {
- const {id} = query
-
- return {
-     house: houses.filter(house => house.id === id)[0]
- }
+House.getInitialProps = async ({ query }) => {
+    const {id} = query
+    const res = await axios.get(`http://localhost:3000/api/houses/${id}`)
+    return {
+        house: res.data
+    }
 }
 
 export default House

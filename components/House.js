@@ -8,9 +8,6 @@ const House = props => (
                 {props.type} - {props.town}
             </p>
             <p>{props.title}</p>
-            <p>
-            {props.rating} ({props.reviewCount})
-            </p>
         </a>
     </Link>
 )

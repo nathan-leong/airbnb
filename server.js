@@ -3,7 +3,7 @@ const next = require('next')
 
 const initSession = require('./middleware/session')
 const initPassport = require('./middleware/passport')
-
+const initModels = require('./middleware/initialiseModels')
 const routes = require('./routes')
 
 const port = parseInt(process.env.port, 10) || 3000
@@ -18,6 +18,7 @@ nextApp.prepare().then(() => {
     )
     initSession(server)
     initPassport(server)
+    initModels()
     server.use('/api', routes)
     server.all('*', (req,res) => {
         return handle(req,res)

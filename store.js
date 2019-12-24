@@ -27,5 +27,19 @@ export default createStore({
       setUser: action((state,payload) => {
         state.user = payload
       })
+    },
+    bookingDates: {
+      startDate: null,
+      endDate: null,
+      setStartDate: action((state,date) => {
+        state.startDate = date
+      }),
+      setEndDate: action((state,date) => {
+        state.endDate = date
+      }),
+      totalNights: 0,
+      setTotalNights: action((state,nights) => {
+        state.totalNights = nights
+      }),
     }
 })
