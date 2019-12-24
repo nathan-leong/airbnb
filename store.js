@@ -40,6 +40,6 @@ export default createStore({
       totalNights: 0,
       setTotalNights: action((state,nights) => {
         state.totalNights = nights
-      }),
+      })
     }
 })

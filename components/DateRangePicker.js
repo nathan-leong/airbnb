@@ -4,8 +4,10 @@ import dateFnsFormat from 'date-fns/format'
 import dateFnsParse from 'date-fns/parse'
 import {DateUtils } from 'react-day-picker'
 import {useStoreActions, useStoreState} from 'easy-peasy'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-const DateRangePicker = () => {
+const DateRangePicker = ({houseId}) => {
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate()+1)
     const startDate = useStoreState(state => state.bookingDates.startDate)
@@ -13,7 +15,22 @@ const DateRangePicker = () => {
     const setStartDate = useStoreActions(actions => actions.bookingDates.setStartDate)
     const setEndDate = useStoreActions(actions => actions.bookingDates.setEndDate)
     const setTotalNights = useStoreActions(actions => actions.bookingDates.setTotalNights)
-
+    const [unbookableDates, setUnbookableDates] = useState([])
+    const [maxUnbookableDate, setMaxUnbookableDate] = useState(null)
+    const maxFinalDate = (initialDate) => {
+        if(unbookableDates.length > 0) {
+            const futureDates = unbookableDates.filter(date => date > initialDate)
+            let maxFinalDate = Math.min.apply(null, futureDates)
+            setMaxUnbookableDate(new Date(maxFinalDate))
+        }
+    }
+    useEffect(() => {
+        async function fetchBookedDates() {
+            const response = await axios.post('http://localhost:3000/api/houses/booked', {houseId: houseId})
+            setUnbookableDates(response.data.dates.map(date => new Date(date)))
+        }
+        fetchBookedDates()
+    },[])
     const numberOfNightsBetweenDates = (startDate,endDate) => {
         if (!startDate || !endDate) return 0
         const start = new Date(startDate)
@@ -46,10 +63,12 @@ const DateRangePicker = () => {
                 placeholder={`${dateFnsFormat(new Date(), format)}`}
                 dayPickerProps={{
                     modifiers: {
-                        disabled: 
-                        {
-                            before: new Date()
-                        }
+                        disabled: [
+                            ...(unbookableDates.map(date => new Date(date))),
+                            {
+                                before: new Date()
+                            }
+                        ]
                     }
                 }}
                 onDayChange={day => {
@@ -59,6 +78,7 @@ const DateRangePicker = () => {
                         newEndDate.setDate(newEndDate.getDate() + 1)
                         setEndDate(newEndDate)
                         setTotalNights(1)
+                        maxFinalDate(day)
                     }
                 }}
             />
@@ -77,7 +97,8 @@ const DateRangePicker = () => {
                             disabled: [
                                 startDate,
                                 {
-                                    before: tomorrow
+                                    before: startDate,
+                                    after: maxUnbookableDate
                                 }
                             ]
                         }

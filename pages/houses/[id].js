@@ -55,7 +55,7 @@ const House = props => {
             </article>
             <aside>
                 <h2>Add dates for prices</h2>
-                <DateRangePicker/>
+                <DateRangePicker houseId={props.house.id}/>
                 <div>
                     <h2>Price per night</h2>
                     <p>${props.house.price}</p>
@@ -91,7 +91,7 @@ House.getInitialProps = async ({ query }) => {
     const {id} = query
     const res = await axios.get(`http://localhost:3000/api/houses/${id}`)
     return {
-        house: res.data
+        house: res.data,
     }
 }
 
