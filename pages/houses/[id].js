@@ -10,9 +10,21 @@ const House = props => {
     const user = useStoreState(state => state.user.user)
     const totalNights = useStoreState(state => state.bookingDates.totalNights)
     const totalCost = totalNights*props.house.price
+    const endDate = useStoreState(state => state.bookingDates.endDate)
+    const startDate = useStoreState(state => state.bookingDates.startDate)
 
-    const bookHouse = () => {
-
+    const reserve = async () => {
+        try{
+            const response = await axios.post('/api/houses/reserve', 
+            {
+                houseId: props.house.id,
+                startDate,
+                endDate,
+            })
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const content = (
@@ -49,9 +61,11 @@ const House = props => {
                     <p>${props.house.price}</p>
                     <h2>Total Price</h2>
                     <p>${totalCost}</p>
-                    <button className="reserve" onClick={
-                        user ? () => bookHouse() : () => setShowLoginModal()}>
-                        {user ? 'Reserve' : 'Login to Reserve' }
+                    <button className="reserve" 
+                        disabled={user && !endDate}
+                        onClick={
+                            user ? () => reserve() : () => setShowLoginModal()}>
+                            {user ? 'Reserve' : 'Login to Reserve' }
                     </button>
                 </div>
             </aside>
