@@ -11,7 +11,9 @@ const bookedDatesHandler = require('./bookedDates')
 const addReviewHandler = require('./addReview')
 const stripeSessionHandler = require('./stripeSession')
 const stripeWebhookHandler = require('./stripeWebhook')
+
 const bookingsCleanHandler = require('./bookingsClean')
+const bookingsListHandler = require('./bookingsList')
 
 router.post('/auth/register', (req,res) => registerHandler(req,res))
 router.post('/auth/logout', (req,res) => logoutHandler(req,res))
@@ -27,4 +29,6 @@ router.post('/stripe/session', (req,res) => stripeSessionHandler(req,res))
 router.post('/stripe/webhook', (req,res) => stripeWebhookHandler(req,res))
 
 router.get('/bookings/clean', (req,res) => bookingsCleanHandler(req,res))
+router.get('/bookings/list', (req,res) => bookingsListHandler(req,res))
+
 module.exports = router
