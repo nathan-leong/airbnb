@@ -11,6 +11,7 @@ House.init(
       primaryKey: true
     },
     host: { type: Sequelize.DataTypes.STRING, allowNull: false },
+    hostId: {type: Sequelize.DataTypes.INTEGER, allowNull: false},
     picture: { type: Sequelize.DataTypes.STRING, allowNull: false },
     type: { type: Sequelize.DataTypes.STRING },
     town: { type: Sequelize.DataTypes.STRING, allowNull: false },

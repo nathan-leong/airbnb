@@ -46,8 +46,8 @@ const Bookings = props => {
     return <Layout content={content} />
 }
 
+// ctx required to pass cookie around server side, as client side cookie is passed around clicking on things
 Bookings.getInitialProps = async ctx => {
-    console.log('ctx: ',ctx)
     const response = await axios({
         method: 'get',
         url: 'http://localhost:3000/api/bookings/list',

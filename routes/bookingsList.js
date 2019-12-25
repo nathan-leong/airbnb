@@ -5,7 +5,6 @@ const Op = require('sequelize').Op
 
 const bookingsListHandler = async (req,res) => {
     try{
-        console.log(req.session)
         if (!req.session.passport || !req.session.passport.user) {
             throw new Error('Unauthorized')
         }

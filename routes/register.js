@@ -3,7 +3,6 @@ const User = require('../models/user')
 
 registerHandler = async (req, res) => {
     try{
-        console.log(req.body)
         const {email, password, passwordconfirmation} = req.body
         if (password !== passwordconfirmation) {
             res.statusCode=403
@@ -13,8 +12,6 @@ registerHandler = async (req, res) => {
             return
         }
         const user = await User.create({ email, password})
-        //console.log('User created:', user)
-        console.log('req: ',req)
         //using passport log straight in if user created
         req.login(user, err => {
 			if (err) {
@@ -26,7 +23,7 @@ registerHandler = async (req, res) => {
             return res.end(JSON.stringify({status:'success', messages: 'User added'}))
         })
     } catch (error) {
-        //console.log(error)
+        console.log(error)
         res.statusCode= 500
         let message = 'An error occurred'
         if (error.name === 'SequelizeUniqueConstraintError') {

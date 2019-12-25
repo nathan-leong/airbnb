@@ -15,6 +15,7 @@ const stripeWebhookHandler = require('./stripeWebhook')
 const bookingsCleanHandler = require('./bookingsClean')
 const bookingsListHandler = require('./bookingsList')
 
+const hostListHandler = require('./hostList')
 router.post('/auth/register', (req,res) => registerHandler(req,res))
 router.post('/auth/logout', (req,res) => logoutHandler(req,res))
 router.post('/auth/login', passport.authenticate('local'), (req,res) => loginHandler(req,res))
@@ -31,4 +32,5 @@ router.post('/stripe/webhook', (req,res) => stripeWebhookHandler(req,res))
 router.get('/bookings/clean', (req,res) => bookingsCleanHandler(req,res))
 router.get('/bookings/list', (req,res) => bookingsListHandler(req,res))
 
+router.get('/host/list', (req,res) => hostListHandler(req,res))
 module.exports = router

@@ -16,7 +16,6 @@ const House = props => {
         try{
             const sessionResponse = await axios.post('/api/stripe/session',
             {amount: totalCost})
-            console.log(sessionResponse.data)
             const {sessionId, stripePublicKey} = sessionResponse.data
             const response = await axios.post('/api/houses/reserve', 
             {
@@ -25,7 +24,6 @@ const House = props => {
                 endDate,
                 sessionId
             })
-            console.log(response.data)
 
             const stripe = Stripe(stripePublicKey)
             await stripe.redirectToCheckout({sessionId})
