@@ -2,8 +2,9 @@ const dotenv = require('dotenv')
 dotenv.config()
 const stripeSessionHandler = async (req,res) => {
     try {
+        const {NODE_ENV, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, DEV_BASE_URL, PROD_BASE_URL} = process.env
         const amount = req.body.amount
-        const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+        const stripe = require('stripe')(STRIPE_SECRET_KEY)
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -14,8 +15,8 @@ const stripeSessionHandler = async (req,res) => {
                 quantity: 1
             }
             ],
-            success_url: process.env.BASE_URL + '/bookings',
-            cancel_url: process.env.BASE_URL + '/bookings'
+            success_url: (NODE_ENV == 'production' ? PROD_BASE_URL : DEV_BASE_URL) + '/bookings',
+            cancel_url: (NODE_ENV == 'production' ? PROD_BASE_URL : DEV_BASE_URL) + '/bookings'
         })
     
         res.writeHead(200, {
@@ -25,7 +26,7 @@ const stripeSessionHandler = async (req,res) => {
             JSON.stringify({
             status: 'success',
             sessionId: session.id,
-            stripePublicKey: process.env.STRIPE_PUBLIC_KEY
+            stripePublicKey: STRIPE_PUBLIC_KEY
             })
         )
     } catch (err) {

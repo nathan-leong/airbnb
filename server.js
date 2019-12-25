@@ -1,12 +1,12 @@
 const express = require('express')
 const next = require('next')
-
+const dotenv = require('dotenv').config()
 const initSession = require('./middleware/session')
 const initPassport = require('./middleware/passport')
 const initModels = require('./middleware/initialiseModels')
 const routes = require('./routes')
 
-const port = parseInt(process.env.port, 10) || 3000
+const port = process.env.NODE_ENV == 'production' ? parseInt(process.env.PORT, 10) : 3000
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({dev})
 const handle = nextApp.getRequestHandler()
