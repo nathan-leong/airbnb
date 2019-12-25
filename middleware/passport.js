@@ -1,6 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const User = require('./mode').User
+const User = require('../models/user')
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -17,7 +17,7 @@ passport.use(new LocalStrategy({
         return
     }
 
-    const valid = await User.isPasswordValid(password)
+    const valid = await user.isPasswordValid(password)
 
     if(!valid) {
         done('Email and password do not match', null)
@@ -37,4 +37,9 @@ passport.deserializeUser((email, done) => {
 	})
 })
 
-module.exports = passport 
+module.exports = server => {
+    server.use(
+        passport.initialize(),
+        passport.session()
+    )
+} 

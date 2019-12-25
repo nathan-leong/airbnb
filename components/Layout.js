@@ -2,7 +2,8 @@ import Header from './Header'
 import Modal from './Modal'
 import LoginModal from './LoginModal'
 import RegistrationModal from './RegistrationModal'
-import {useStore, useStoreState, useStoreActions} from 'easy-peasy'
+import {useStoreState, useStoreActions} from 'easy-peasy'
+import Head from 'next/head'
 const Layout = props => {
     const showModal = useStoreState(state => state.modals.showModal)
     // const store = useStore()
@@ -21,6 +22,7 @@ const Layout = props => {
 
     return (
         <div>
+            <Head><script src='https://js.stripe.com/v3/'></script></Head>
             <Header/>
             <main>{props.content}</main>
             {showModal && <Modal close={() => setHideModal()}>

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "prod": "NODE_ENV=production node server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "bcrypt": "^3.0.7",
     "connect-session-sequelize": "^6.0.0",
     "date-fns": "^2.8.1",
+    "dotenv": "^8.2.0",
     "easy-peasy": "^3.2.3",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
@@ -27,6 +28,8 @@
     "react": "^16.12.0",
     "react-day-picker": "^7.4.0",
     "react-dom": "^16.12.0",
-    "sequelize": "^5.21.3"
+    "sanitize-html": "^1.20.1",
+    "sequelize": "^5.21.3",
+    "stripe": "^7.14.0"
   }
 }
