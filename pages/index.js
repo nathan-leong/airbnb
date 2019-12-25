@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-unfetch'
-//import houses from './houses.json'
 import House from '../components/House'
 import Layout from '../components/Layout'
 import axios from 'axios'

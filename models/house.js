@@ -12,7 +12,7 @@ House.init(
     },
     host: { type: Sequelize.DataTypes.STRING, allowNull: false },
     hostId: {type: Sequelize.DataTypes.INTEGER, allowNull: false},
-    picture: { type: Sequelize.DataTypes.STRING, allowNull: false },
+    picture: { type: Sequelize.DataTypes.TEXT, allowNull: false },
     type: { type: Sequelize.DataTypes.STRING },
     town: { type: Sequelize.DataTypes.STRING, allowNull: false },
     title: { type: Sequelize.DataTypes.STRING, allowNull: false },

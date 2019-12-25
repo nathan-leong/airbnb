@@ -1,3 +1,4 @@
+const sanitizeHtml = require('sanitize-html')
 const House = require('../../models/house')
 const User = require('../../models/user')
 const hostEdit = async (req,res) => {
@@ -15,6 +16,9 @@ const hostEdit = async (req,res) => {
         return
         }
         const houseData = req.body.house
+        houseData.description = sanitizeHtml(houseData.description, {
+            allowedTags: [ 'b', 'i', 'em', 'strong', 'p', 'br' ]
+        })
         const user = await User.findOne({where: {email: req.session.passport.user}})
         const house = await House.findByPk(houseData.id)
         if (house) {

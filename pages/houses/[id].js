@@ -43,6 +43,10 @@ const House = props => {
                     {props.house.type} - {props.house.town}
                 </p>
                 <p>{props.house.title}</p>
+                <div
+                dangerouslySetInnerHTML={{
+                    __html: props.house.description
+                }}></div>
                 {props.house.reviewsCount > 0 && (
                     <div className='reviews'>
                     <h3>{props.house.reviewsCount} Reviews</h3>

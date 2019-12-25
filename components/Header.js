@@ -2,6 +2,7 @@ import Link from 'next/link'
 import {useStoreActions, useStoreState} from 'easy-peasy'
 import store from '../store'
 import axios from 'axios'
+import Router from 'next/router'
 
 const Header = () => {
     //Two ways of using actions show below
@@ -41,6 +42,7 @@ const Header = () => {
                     onClick={async () => {
                         await axios.post('/api/auth/logout')
                         setUser(null)
+                        Router.push('/')
                     }}>
                         Log Out
                     </a>

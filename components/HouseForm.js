@@ -35,7 +35,14 @@ const HouseForm = props => {
     const [type, setType] = useState(
         (props.house && props.house.type) || 'Entire house'
     )
-
+    
+    const handleFileUpload = file => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        setPicture(reader.result)
+      }
+    }
     const houseTypes = ['Entire house', 'Room']
 
     return (
@@ -120,14 +127,12 @@ const HouseForm = props => {
           />
         </p>
         <p>
-          <label>House picture URL</label>
+          <label>House picture</label>
           <input
-            required
-            onChange={event => setPicture(event.target.value)}
-            type='text'
-            placeholder='House picture URL'
-            value={picture}
+            type="file" id="fileUpload" accept="image/*"
+            onChange={event => handleFileUpload(event.target.files[0])}
           />
+          {picture ? <img src={picture} width="200" alt="House image" /> : ''}
         </p>
         <p>
           <label>House description</label>
@@ -247,6 +252,7 @@ const HouseForm = props => {
 
       <style jsx>{`
         input[type='number'],
+        input[type='file'],
         select,
         textarea {
           display: block;
