@@ -1,5 +1,5 @@
-const House = require('../models/house')
-const Review = require('../models/review')
+const House = require('../../models/house')
+const Review = require('../../models/review')
 
 const getHouseHandler = (req,res) => {
 

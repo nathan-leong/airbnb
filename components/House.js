@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 const House = props => (
-    <Link href='/houses/[id]' as={'/houses/' + props.id}>
+    <Link href={`/houses/${props.id}`}>
         <a>
             <img src={props.picture} alt='House Picture' />
             <p>

@@ -16,7 +16,8 @@ const Host = props => {
                             <div className='house' key={index}>
                                 <img src={house.picture} alt='house picture'/>
                                 <div>
-                                    <h2>{house.title} in {house.town}</h2>
+                                    <h2>{house.title}</h2>
+                                    <h3>{house.town}</h3>
                                     <p>
                                     <Link href={`/houses/${house.id}`}>
                                         <a>View house page</a>
@@ -56,8 +57,8 @@ const Host = props => {
             <style jsx>{`
                 .container {
                     display: grid;
-                    grid-template-columns: 60% 40%;
-                    grid-gap: 90px;
+                    grid-template-columns: 50% 50%;
+                    grid-gap: 100px;
                 }
     
                 .list {
@@ -70,7 +71,7 @@ const Host = props => {
                 .house {
                 display: grid;
                 grid-template-columns: 30% 70%;
-                grid-gap: 70px;
+                grid-gap: 90px;
                 }
 
                 .house img {

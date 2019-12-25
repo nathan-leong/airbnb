@@ -38,7 +38,7 @@ const House = props => {
                 <title>{props.house.title}</title>
             </Head>
             <article>
-                <img src={props.house.picture} width='100%' alt='House picture' />
+                <img src={props.house.picture} height='200px' alt='House picture' />
                 <p>
                     {props.house.type} - {props.house.town}
                 </p>

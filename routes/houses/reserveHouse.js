@@ -1,5 +1,5 @@
-const User = require('../models/user')
-const Booking = require('../models/booking')
+const User = require('../../models/user')
+const Booking = require('../../models/booking')
 const reserveHouseHandler = async (req,res) => {
     const userEmail = req.session.passport.user
     try {

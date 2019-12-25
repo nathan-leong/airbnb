@@ -1,4 +1,4 @@
-const House = require('../models/house')
+const House = require('../../models/house')
 
 const getHousesHandler = (req,res) => {
     House.findAndCountAll().then(result => {

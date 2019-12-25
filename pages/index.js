@@ -14,12 +14,15 @@ const Index = props => {
         })}
         </div>
 
-        <style jsx>{`
+        <style jsx global>{`
         .houses {
             display: grid;
             grid-template-columns: 50% 50%;
-            grid-template-rows: 100px 100px;
-            grid-gap: 40px;
+            grid-template-rows: 200px 200px;
+            grid-gap: 80px;
+        }
+        .houses img {
+            max-height: 200px;
         }
         `}</style>
     </div>)

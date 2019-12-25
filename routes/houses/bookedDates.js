@@ -1,4 +1,4 @@
-const Booking = require('../models/booking')
+const Booking = require('../../models/booking')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 const bookedDatesHandler = async (req,res) => {
