@@ -1,7 +1,8 @@
 import axios from 'axios'
 import Head from 'next/head'
 import Link from 'next/link'
-
+import getConfig from 'next/config'
+const {publicRuntimeConfig} = getConfig()
 import Layout from '../../components/Layout'
 
 const Host = props => {
@@ -87,7 +88,7 @@ const Host = props => {
 Host.getInitialProps = async ctx => {
     const response = await axios({
         method: 'get',
-        url: 'http://localhost:3000/api/host/list',
+        url: publicRuntimeConfig.BASE_URL + '/api/host/list',
         headers: ctx.req ? { cookie: ctx.req.headers.cookie } : undefined
       })
     

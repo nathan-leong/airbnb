@@ -3,6 +3,8 @@ import Layout from '../../components/Layout'
 import DateRangePicker from '../../components/DateRangePicker'
 import {useStoreActions, useStoreState} from 'easy-peasy'
 import axios from 'axios'
+import getConfig from 'next/config'
+const {publicRuntimeConfig} = getConfig()
 const House = props => {
 
     const setShowLoginModal = useStoreActions(actions => actions.modals.setShowLoginModal)
@@ -98,7 +100,7 @@ const House = props => {
 
 House.getInitialProps = async ({ query }) => {
     const {id} = query
-    const res = await axios.get(`http://localhost:3000/api/houses/${id}`)
+    const res = await axios.get(`${publicRuntimeConfig.BASE_URL}/api/houses/${id}`)
     return {
         house: res.data,
     }

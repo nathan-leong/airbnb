@@ -2,6 +2,9 @@ import axios from 'axios'
 import Layout from '../../components/Layout'
 import HouseForm from '../../components/HouseForm'
 import Head from 'next/head'
+import getConfig from 'next/config'
+const {publicRuntimeConfig} = getConfig()
+
 const EditHouse = props => {
 
     const content = (
@@ -17,7 +20,7 @@ const EditHouse = props => {
 
 EditHouse.getInitialProps = async ({query}) => {
     const {id} = query
-    const response = await axios.get(`http://localhost:3000/api/houses/${id}`)
+    const response = await axios.get(`${publicRuntimeConfig.BASE_URL}/api/houses/${id}`)
 
     return {
         house: response.data

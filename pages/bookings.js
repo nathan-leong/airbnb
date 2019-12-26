@@ -1,6 +1,8 @@
 import Layout from '../components/Layout'
 import Head from 'next/head'
 import axios from 'axios'
+import getConfig from 'next/config'
+const {publicRuntimeConfig} = getConfig()
 
 const Bookings = props => {
     const content = (
@@ -50,7 +52,7 @@ const Bookings = props => {
 Bookings.getInitialProps = async ctx => {
     const response = await axios({
         method: 'get',
-        url: 'http://localhost:3000/api/bookings/list',
+        url: publicRuntimeConfig.BASE_URL + '/api/bookings/list',
         headers: ctx.req ? { cookie: ctx.req.headers.cookie } : undefined
       })
     return {bookings:response.data}
