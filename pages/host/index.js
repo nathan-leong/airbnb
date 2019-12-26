@@ -88,7 +88,7 @@ const Host = props => {
 Host.getInitialProps = async ctx => {
     const response = await axios({
         method: 'get',
-        url: publicRuntimeConfig.BASE_URL + '/api/host/list',
+        url: publicRuntimeConfig.BASE_URL + publicRuntimeConfig.PORT + '/api/host/list',
         headers: ctx.req ? { cookie: ctx.req.headers.cookie } : undefined
       })
     

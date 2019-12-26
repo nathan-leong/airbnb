@@ -28,7 +28,7 @@ const DateRangePicker = ({houseId}) => {
     }
     useEffect(() => {
         async function fetchBookedDates() {
-            const response = await axios.post(publicRuntimeConfig.BASE_URL + '/api/houses/booked', {houseId: houseId})
+            const response = await axios.post(publicRuntimeConfig.BASE_URL + publicRuntimeConfig.PORT + '/api/houses/booked', {houseId: houseId})
             setUnbookableDates(response.data.dates.map(date => new Date(date)))
         }
         fetchBookedDates()

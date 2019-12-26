@@ -6,7 +6,7 @@ const initPassport = require('./middleware/passport')
 const initModels = require('./middleware/initialiseModels')
 const routes = require('./routes')
 
-const port = process.env.NODE_ENV == 'production' ? parseInt(process.env.PORT, 10) : 3000
+const port = parseInt(process.env.PORT, 10)
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({dev})
 const handle = nextApp.getRequestHandler()

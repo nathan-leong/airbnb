@@ -20,7 +20,7 @@ const EditHouse = props => {
 
 EditHouse.getInitialProps = async ({query}) => {
     const {id} = query
-    const response = await axios.get(`${publicRuntimeConfig.BASE_URL}/api/houses/${id}`)
+    const response = await axios.get(`${publicRuntimeConfig.BASE_URL}${publicRuntimeConfig.PORT}/api/houses/${id}`)
 
     return {
         house: response.data

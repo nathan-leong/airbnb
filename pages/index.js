@@ -33,7 +33,7 @@ const Index = props => {
 }
 
 Index.getInitialProps= async () => {
-    const res = await axios.get(publicRuntimeConfig.BASE_URL + '/api/houses')
+    const res = await axios.get(publicRuntimeConfig.BASE_URL + publicRuntimeConfig.PORT + '/api/houses')
     const houses = res.data
     return {
         houses
