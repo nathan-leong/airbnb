@@ -6,6 +6,8 @@ import {DateUtils } from 'react-day-picker'
 import {useStoreActions, useStoreState} from 'easy-peasy'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import getConfig from 'next/config'
+const {publicRuntimeConfig} = getConfig()
 
 const DateRangePicker = ({houseId}) => {
     const tomorrow = new Date()
@@ -26,7 +28,7 @@ const DateRangePicker = ({houseId}) => {
     }
     useEffect(() => {
         async function fetchBookedDates() {
-            const response = await axios.post('http://localhost:3000/api/houses/booked', {houseId: houseId})
+            const response = await axios.post(publicRuntimeConfig.BASE_URL + '/api/houses/booked', {houseId: houseId})
             setUnbookableDates(response.data.dates.map(date => new Date(date)))
         }
         fetchBookedDates()

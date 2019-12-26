@@ -1,6 +1,8 @@
 import House from '../components/House'
 import Layout from '../components/Layout'
 import axios from 'axios'
+import getConfig from 'next/config'
+const {publicRuntimeConfig} = getConfig()
 const Index = props => {
     const content = (<div>
         <h2>Places to stay</h2>
@@ -31,7 +33,7 @@ const Index = props => {
 }
 
 Index.getInitialProps= async () => {
-    const res = await axios.get('http://localhost:3000/api/houses')
+    const res = await axios.get(publicRuntimeConfig.BASE_URL + '/api/houses')
     const houses = res.data
     return {
         houses
