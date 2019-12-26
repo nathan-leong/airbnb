@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config()
 const initSession = require('./middleware/session')
 const initPassport = require('./middleware/passport')
 const initModels = require('./middleware/initialiseModels')
+const cors = require('cors')
 const routes = require('./routes')
 
 const port = process.env.NODE_ENV == 'production' ? parseInt(process.env.PORT, 10) : 3000
@@ -18,7 +19,8 @@ nextApp.prepare().then(() => {
             verify: (req, res, buf) => { //make rawBody available
                 req.rawBody = buf
             }
-        })
+        }),
+        cors()
     )
     initSession(server)
     initPassport(server)
