@@ -16,4 +16,4 @@ workflows:
           aws-region: ${AWS_DEFAULT_REGION}
           family: "${AWS_ECS_FAMILY}"
           cluster-name: "${AWS_CLUSTER_NAME}"
-          container-image-name-updates: "${AWS_CLUSTER_NAME}"
+          container-image-name-updates: "container=${AWS_ECS_CONTAINER_NAME}-service,tag=latest"
