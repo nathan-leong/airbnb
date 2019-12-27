@@ -9,7 +9,7 @@ workflows:
           account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           region: ${AWS_DEFAULT_REGION}
-          tag: "latest"
+          tag: "${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build_and_push_image
@@ -17,4 +17,4 @@ workflows:
           family: "${AWS_ECS_FAMILY}"
           service-name: "${AWS_SERVICE_NAME}"
           cluster-name: "${AWS_CLUSTER_NAME}"
-          container-image-name-updates: "container=${AWS_ECS_CONTAINER_NAME},tag=latest"
+          container-image-name-updates: "container=${AWS_ECS_CONTAINER_NAME},tag=${CIRCLE_SHA1}"
