@@ -7,7 +7,7 @@ aws ssm send-command \
     --comment "stop containers" \
     --output text
 
-sleep 5;
+sleep 15;
 aws ssm send-command \
     --document-name "AWS-RunShellScript" \
     --parameters commands=["cd airbnb && git pull origin master"] \
@@ -15,7 +15,7 @@ aws ssm send-command \
     --comment "pull git repo" \
     --output text
 
-sleep 5;
+sleep 15;
 aws ssm send-command \
     --document-name "AWS-RunShellScript" \
     --parameters commands=["cd airbnb && bash remotescript.sh"] \
