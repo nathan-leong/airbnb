@@ -5,7 +5,7 @@ import getConfig from 'next/config'
 const {publicRuntimeConfig} = getConfig()
 const Index = props => {
     const content = (<div>
-        <h2>Check out these places to stay !</h2>
+        <h2>Check out these places to stay !!!</h2>
         <div className='houses'>
         {props.houses.map((house, index) => {
             return(

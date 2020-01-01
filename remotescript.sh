@@ -1,5 +1,5 @@
 #!/bin/bash  
-git pull origin master
+sudo git pull origin master
 
 sudo docker stop airbnbcontainer
 sudo docker rm airbnbcontainer
