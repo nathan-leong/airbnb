@@ -1,5 +1,6 @@
 #!/bin/bash  
-sudo service docker start
+git pull origin master
+#sudo service docker start
 echo "Building build image"
 sudo docker build --rm -t airbnb .
 echo "Build Complete, running app"

@@ -7,18 +7,18 @@ aws ssm send-command \
     --comment "stop containers" \
     --output text
 
-sleep 15;
-aws ssm send-command \
-    --document-name "AWS-RunShellScript" \
-    --parameters commands=["cd airbnb && git pull origin master"] \
-    --instance-ids $instance_id \
-    --comment "pull git repo" \
-    --output text
+# sleep 15;
+# aws ssm send-command \
+#     --document-name "AWS-RunShellScript" \
+#     --parameters commands=["cd /home/ec2-user/airbnb && git pull origin master"] \
+#     --instance-ids "i-02802fe96404ca8c3" \
+#     --comment "pull git repo" \
+#     --output text
 
 sleep 15;
 aws ssm send-command \
     --document-name "AWS-RunShellScript" \
-    --parameters commands=["cd airbnb && bash remotescript.sh"] \
+    --parameters commands=["cd /home/ec2-user/airbnb && bash remotescript.sh"] \
     --instance-ids $instance_id \
     --comment "build and deploy docker" \
     --output text
