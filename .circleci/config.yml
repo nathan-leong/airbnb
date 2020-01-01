@@ -9,3 +9,8 @@ jobs:
       - aws-cli/setup:
           profile-name: default
       - run: ./build.sh ${EC2_INSTANCE_ID}
+workflows:
+  version: 2
+  build_to_aws:
+    jobs:
+      - aws-send-command
