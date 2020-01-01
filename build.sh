@@ -18,7 +18,7 @@ aws ssm send-command \
 sleep 5;
 aws ssm send-command \
     --document-name "AWS-RunShellScript" \
-    --parameters commands=["cd airbnb && sudo docker build --rm -t airbnb . && sudo docker run --name airbnbcontainer -p 80:80 airbnb"] \
+    --parameters commands=["cd airbnb && bash remotescript.sh"] \
     --instance-ids $instance_id \
     --comment "build and deploy docker" \
     --output text
