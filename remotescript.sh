@@ -1,5 +1,8 @@
 #!/bin/bash  
 git pull origin master
+
+sudo docker stop airbnbcontainer
+sudo docker rm airbnbcontainer
 #sudo service docker start
 echo "Building build image"
 sudo docker build --rm -t airbnb .

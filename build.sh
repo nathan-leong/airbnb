@@ -1,11 +1,11 @@
 instance_id=$1
 
-aws ssm send-command \
-    --document-name "AWS-RunShellScript" \
-    --parameters commands=["sudo docker stop airbnbcontainer && sudo docker rm airbnbcontainer"] \
-    --instance-ids $instance_id \
-    --comment "stop containers" \
-    --output text
+# aws ssm send-command \
+#     --document-name "AWS-RunShellScript" \
+#     --parameters commands=["sudo docker stop airbnbcontainer && sudo docker rm airbnbcontainer"] \
+#     --instance-ids $instance_id \
+#     --comment "stop containers" \
+#     --output text
 
 # sleep 15;
 # aws ssm send-command \
@@ -15,7 +15,7 @@ aws ssm send-command \
 #     --comment "pull git repo" \
 #     --output text
 
-sleep 15;
+#sleep 15;
 aws ssm send-command \
     --document-name "AWS-RunShellScript" \
     --parameters commands=["cd /home/ec2-user/airbnb && bash remotescript.sh"] \
