@@ -82,7 +82,7 @@ sleep 5;
 
 aws ssm send-command \
     --document-name "AWS-RunShellScript" \
-    --parameters commands=["bash /home/ec2-user/airbnb/remotescript"] \
+    --parameters commands=["bash /home/ec2-user/airbnb/remotescript.sh"] \
     --instance-ids $instance_id \
     --comment "run remotescript" \
     --output text
