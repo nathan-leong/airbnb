@@ -73,7 +73,7 @@ sleep 10;
 
 aws ssm send-command \
     --document-name "AWS-RunShellScript" \
-    --parameters commands=["git clone $GIT_REPO"] \
+    --parameters commands=["git clone $GIT_REPO && cd airbnb"] \
     --instance-ids $instance_id \
     --comment "cloning git repos" \
     --output text
@@ -101,7 +101,7 @@ ssh_address=$(aws ec2 describe-instances \
 
 echo "From within the instance, after the node packages have been installed you can see the images/ containers being made as it builds the prod container"
 echo "Run the command below to ssh into the instance."
-echo "ssh -i MyKeyPair.pem ec2-user@$ssh_address"
+echo "ssh -i airbnbKey.pem ec2-user@$ssh_address"
 
 echo "The website will be deployed to the below url as soon as it has finished building, this may take up to 5 minutes"
 echo http://$ip_address:80
