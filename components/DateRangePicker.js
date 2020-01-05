@@ -118,7 +118,7 @@ const DateRangePicker = ({houseId}) => {
                 display: grid;
                 border: 1px solid #ddd;
                 grid-template-columns: 30% 70%;
-                padding: 10px;
+                padding: 15px;
             }
             label {
                 padding-top: 10px;
@@ -126,7 +126,7 @@ const DateRangePicker = ({houseId}) => {
         `}</style>
         <style jsx global>{`
             .DayPickerInput input {
-                width: 120px;
+                width: 100px;
                 padding: 10px;
                 font-size: 16px;
             }

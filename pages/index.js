@@ -6,22 +6,26 @@ const {publicRuntimeConfig} = getConfig()
 const Index = props => {
     const content = (<div>
         <h2>Check out these places to stay !!!</h2>
-        <div className='houses'>
+        <div className='houses-container'>
         {props.houses.map((house, index) => {
             return(
-                <House key={index} {...house} />
+                <div className='house' key={index}>
+                    <House {...house} />
+                </div>
             )
         })}
         </div>
 
         <style jsx global>{`
-        .houses {
-            display: grid;
-            grid-template-columns: 50% 50%;
-            grid-template-rows: 200px 200px;
-            grid-gap: 80px;
+        .houses-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
         }
-        .houses img {
+        .house {
+            margin: 20px;
+        }
+        .houses-container img {
             max-height: 200px;
         }
         `}</style>

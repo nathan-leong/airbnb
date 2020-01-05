@@ -3,8 +3,10 @@ import {useStoreActions, useStoreState} from 'easy-peasy'
 import store from '../store'
 import axios from 'axios'
 import Router from 'next/router'
+import {useState} from 'react'
 
 const Header = () => {
+    const [menuExpanded, setMenuExpanded] = useState(false)
     //Two ways of using actions show below
     //useStoreActions & useStoreState will ensure when store update react view also updates
     const setShowLoginModal = () => store.getActions().modals.setShowLoginModal()
@@ -18,9 +20,12 @@ const Header = () => {
         <Link href='/'>
             <a><img src='/img/logo.png' alt=''/></a>
         </Link>
-        <nav>
+        <nav className={menuExpanded ? 'expanded' : 'collapsed'}>
             {user ? (
                 <ul>
+                    <li className='hamburger-menu'>
+                        <a style={{padding: 0}} onClick= {() => setMenuExpanded(!menuExpanded)}><img src='/img/burger-icon.png' alt=''/></a>
+                    </li>
                     <li className='username'>{user}</li>
                     <li>
                         <Link href='/bookings'>
@@ -50,6 +55,9 @@ const Header = () => {
                 </ul>
                 ) : (
                 <ul>
+                    <li className='hamburger-menu'>
+                        <a><img src='/img/burger-icon.png' alt=''/></a>
+                    </li>
                     <li>
                         <a href='#' onClick={()=> setShowRegistrationModal()}>Sign up</a>
                     </li>
@@ -64,7 +72,8 @@ const Header = () => {
             ul {
                 margin: 0;
                 padding: 0;
-                float: right;
+                position: absolute;
+                right: 0;
             }
         
             li {
@@ -82,7 +91,12 @@ const Header = () => {
             nav a {
                 padding: 1em 0.5em;
             }
-
+            nav a:hover {
+                color: rgb(255, 90, 95);
+            }
+            nav li:first-child {
+                display: none;
+            }
             .nav-container {
                 border-bottom: 1px solid #eee;
                 height: 50px;
@@ -93,6 +107,21 @@ const Header = () => {
             }
             .username {
                 padding: 1em 0.5em;
+                font-weight: 700;
+                margin-right: 15px;
+            }
+
+            @media screen and (max-width: 600px) {
+                nav li:not(:first-child) {display: none;}
+                nav li:first-child {display: block; float: right;}
+                nav.expanded li:not(:first-child) {
+                    display: block;
+                    width: 100%;
+                    position:relative;
+                    z-index:1;
+                    text-align: center;
+                    background-color:white;
+                }
             }
         `}</style>
     </div>

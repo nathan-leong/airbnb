@@ -83,13 +83,17 @@ const House = props => {
 
             <style jsx>{`
                 .container {
-                    display: grid;
-                    grid-template-columns: 60% 40%;
-                    grid-gap: 30px;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                }
+                article {
+                    margin: 20px;
                 }
                 aside {
                     border: 1px solid #ccc;
-                    padding: 20px;
+                    padding: 40px;
+                    margin: 20px;
                 }
             `}</style>
         </div>
