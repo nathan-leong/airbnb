@@ -17,7 +17,8 @@ nextApp.prepare().then(() => {
         express.json({
             verify: (req, res, buf) => { //make rawBody available
                 req.rawBody = buf
-            }
+            },
+            limit: '50mb'
         })
     )
     initSession(server)
