@@ -40,11 +40,11 @@ const House = props => {
                 <title>{props.house.title}</title>
             </Head>
             <article>
+                <h2>{props.house.title}</h2>
                 <img src={props.house.picture} height='200px' alt='House picture' />
                 <p>
                     {props.house.type} - {props.house.town}
                 </p>
-                <p>{props.house.title}</p>
                 <div
                 dangerouslySetInnerHTML={{
                     __html: props.house.description
@@ -89,6 +89,7 @@ const House = props => {
                 }
                 article {
                     margin: 20px;
+                    max-width:50%;
                 }
                 aside {
                     border: 1px solid #ccc;
