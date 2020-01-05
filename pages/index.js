@@ -28,6 +28,9 @@ const Index = props => {
         .houses-container img {
             max-height: 200px;
         }
+        img {
+            max-width:90%;
+        }
         `}</style>
     </div>)
     return (

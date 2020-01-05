@@ -24,7 +24,7 @@ const Header = () => {
             {user ? (
                 <ul>
                     <li className='hamburger-menu'>
-                        <a style={{padding: 0}} onClick= {() => setMenuExpanded(!menuExpanded)}><img src='/img/burger-icon.png' alt=''/></a>
+                        <a style={{padding: 0}} onClick= {() => setMenuExpanded(!menuExpanded)} href='#'><img src='/img/burger-icon.png' alt=''/></a>
                     </li>
                     <li className='username'>{user}</li>
                     <li>
